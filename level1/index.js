@@ -10,12 +10,14 @@ const port = process.env.PORT || 5000
 
 
 app.use(express.json())
-
-// streaming
+// const ai = new GoogleGenAI({
+//     apiKey: process.env.GEMINI_API_KEY
+// })
+// // streaming
 // const main=async ()=>{
 //     const responseStream=await ai.models.generateContentStream({
-//         model:"gemini-2.5-flash",
-//         contents:"what is js"
+//         model:"gemini-3.8-flash",
+//         contents:"hello"
 //     })
 
 //     for await (const chunk of responseStream) {
@@ -46,7 +48,7 @@ app.use(express.json())
 // app.post("/chat",async (req,res)=>{
 //     const {prompt}=req.body
 //     const result=await ai.models.generateContent({
-//         model:"gemini-3.5-flash",
+//         model:"gemini-3.8-flash",
 //         contents:prompt
 //     })
 
@@ -56,25 +58,25 @@ app.use(express.json())
 
 //langchain
 
-app.post("/chat",async (req,res)=>{
-    const {prompt}=req.body
-    const ai=new ChatGroq({
-        model:"openai/gpt-oss-120b"
-    })
+// app.post("/chat",async (req,res)=>{
+//     const {prompt}=req.body
+//     const ai=new ChatGroq({
+//         model:"openai/gpt-oss-120b"
+//     })
 
 
-    const result=await ai.invoke([
-        {
-            role:"system",
-            content:"you are jarvis and my assistant"
-        },
-        {
-            role:"human",
-            content:prompt
-        }
-    ])
-    return res.json(result.content)
-})
+//     const result=await ai.invoke([
+//         {
+//             role:"system",
+//             content:"you are manoj and my assistant"
+//         },
+//         {
+//             role:"human",
+//             content:prompt
+//         }
+//     ])
+//     return res.json(result.content)
+// })
 
 
 app.listen(port, () => {

@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 dotenv.config()
 import { ChatGoogle } from "@langchain/google";
 import { TavilySearch } from "@langchain/tavily";
-import {context, createAgent, HumanMessage, tool} from "langchain"
+import {context, createAgent, HumanMessage,tool} from "langchain"
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import z from "zod";
 import { MessagesAnnotation, messagesDeltaReducer, StateGraph } from "@langchain/langgraph";
@@ -17,7 +17,7 @@ app.use(express.json())
 
 
 
-// ai agent = llm + tools 
+// // ai agent = llm + tools 
 
 const tool1=tool(
     ({email,content})=>{
@@ -37,7 +37,7 @@ const tool1=tool(
 
 
 
-//custom tool
+// //custom tool
 
 const tool2= tool(
     ({a,b})=>{
@@ -55,8 +55,11 @@ const tool2= tool(
 
 
 const tools=[tool1,tool2]
-
-const model = new ChatGoogle("gemini-2.5-flash").bindTools(tools)
+// const tool1=new TavilySearch({
+//     maxResults:3,
+//     topic:"general",
+// })
+const model = new ChatGoogle("gemini-3.8-flash").bindTools(tools)
 
 const toolNode=new ToolNode(tools)
 
@@ -98,7 +101,26 @@ const graph=new StateGraph(MessagesAnnotation)
 .compile()
 
 
+// app.post("/chat", async (req, res) => {
+//     const { prompt } = req.body
+//     const agent=await createAgent({
+//       model,
+//       tools:[tool1,tool2]
+//     })
+//     const result=await agent.invoke({
+//         messages:[{
+//             role:"user",
+//             content:prompt,
+//             systemprompt:"you are manoj and my assistant"
+//         }]
+//     })
 
+//     console.log(result)
+//     return res.json(result.messages[result.messages.length-1].content)
+      
+// })
+        
+    
 
 app.post("/chat", async (req, res) => {
     const { prompt } = req.body

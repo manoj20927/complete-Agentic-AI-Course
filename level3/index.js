@@ -19,9 +19,11 @@ const port = process.env.PORT || 5000
 
 app.use(express.json())
 
-const client=new MongoClient("add your db url")
+const client=new MongoClient("mongodb+srv://manoj:manoj26@cluster0.ivd2rvv.mongodb.net/")
 
 const checkpointer=new MongoDBSaver({client})
+
+// const checkpointer=new MemorySaver()
 
 // ai agent = llm + tools 
 
@@ -43,7 +45,7 @@ const checkpointer=new MongoDBSaver({client})
 
 
 
-//custom tool
+// //custom tool
 
 // const tool2= tool(
 //     ({a,b})=>{
@@ -62,7 +64,7 @@ const checkpointer=new MongoDBSaver({client})
 
 // const tools=[tool1,tool2]
 
-// const model = new ChatGoogle("gemini-2.5-flash").bindTools(tools)
+// const model = new ChatGoogle("gemini-3.8-flash").bindTools(tools)
 
 // const toolNode=new ToolNode(tools)
 
@@ -88,12 +90,12 @@ const checkpointer=new MongoDBSaver({client})
 //     }
 // }
 
-// state=[
-//     humanMessage:"",
-//     AiMessage:"",
-//     toolMessage:"",
-//     AiMessages:""
-// ]
+// // state=[
+// //     humanMessage:"",
+// //     AiMessage:"",
+// //     toolMessage:"",
+// //     AiMessages:""
+// // ]
 
 // const graph=new StateGraph(MessagesAnnotation)
 // .addNode("agent",agent)
@@ -128,6 +130,9 @@ const checkpointer=new MongoDBSaver({client})
 //     return res.json(result.messages[result.messages.length-1].content)
       
 // })
+
+
+
 
 const customState=new StateSchema({
     prompt:z.string(),

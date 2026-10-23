@@ -30,7 +30,7 @@ const transport=new StdioClientTransport({
 await client.connect(transport)
 
 const {tools}=await client.listTools()
-
+// console.log("tools",tools)
 const modelwithTools=ai.bindTools(
     tools.map(t=>({
         type:"function",

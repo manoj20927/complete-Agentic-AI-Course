@@ -42,16 +42,19 @@ const upload=async ()=>{
     const buffer = fs.readFileSync(pdfPath)
     const pdfResult = new PDFParse({ data: buffer })
     const result = await pdfResult.getText()
+  
     const text = result.text
+    //   console.log(text)
     const spilitter = new RecursiveCharacterTextSplitter({
         chunkSize: 1000,
         chunkOverlap: 200
     })
     const docs = await spilitter.createDocuments([text])
+     console.log(docs)
     await vectorStore.addDocuments(docs)
 }
 
-
+// upload()
 app.post("/chat",async (req,res)=>{
    const {prompt}=req.body
    const docs=await vectorStore.similaritySearch(prompt,5)
